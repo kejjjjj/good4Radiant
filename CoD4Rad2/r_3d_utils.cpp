@@ -41,3 +41,22 @@ bool r::R_WorldToScreen(vec3_t pos, vec2_t xy)
 	
 	return true;
 }
+float r::GetAxialAngle(float dir)
+{
+	dir = normalize(dir);
+
+	if (dir >= 135 || dir <= -135) {
+		return 180;  //X backward
+		//iPrintLn("0 yaw");
+	}
+	else if (dir <= -45 && dir >= -135) {
+		return 270; //Y backward
+		//iPrintLn("270 yaw");
+	}
+	else if (dir >= 45 && dir <= 135) {
+		return 90;  //Y forward
+		//iPrintLn("90 yaw");
+	}
+	return 0; // x forward
+
+}

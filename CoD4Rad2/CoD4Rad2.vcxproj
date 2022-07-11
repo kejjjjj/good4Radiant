@@ -178,9 +178,11 @@
     <ClInclude Include="ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="ImGui\ImZoomSlider.h" />
+    <ClInclude Include="math.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="rad_vars.h" />
     <ClInclude Include="r_3d.h" />
+    <ClInclude Include="r_on_camera.h" />
     <ClInclude Include="r_quizmo.h" />
     <ClInclude Include="r_ui.h" />
     <ClInclude Include="r_wnd.h" />
@@ -207,6 +209,7 @@
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="ImGui\ImSequencer.cpp" />
     <ClCompile Include="koukku.cpp" />
+    <ClCompile Include="math.cpp" />
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="rad_entrypoint.cpp" />
     <ClCompile Include="rad_functions.cpp" />
@@ -215,6 +218,7 @@
     <ClCompile Include="r_guizmo.cpp" />
     <ClCompile Include="r_init.cpp" />
     <ClCompile Include="r_main.cpp" />
+    <ClCompile Include="r_on_camera.cpp" />
     <ClCompile Include="r_ui.cpp" />
     <ClCompile Include="r_wnd.cpp" />
     <ClCompile Include="vector.cpp" />

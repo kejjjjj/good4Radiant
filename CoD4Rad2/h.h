@@ -34,6 +34,7 @@ typedef vec_t vec4_t[4];
 #include <TlHelp32.h>
 #include <psapi.h>
 #include <corecrt_math.h>
+#include <corecrt_math_defines.h>
 
 //detours
 #include "detours/detours.h"
@@ -74,7 +75,9 @@ using namespace std::chrono_literals;
 #include "r_ui.h"
 #include "r_quizmo.h"
 #include "r_3d.h"
+#include "r_on_camera.h"
 
+#include "math.h"
 #include "matrix.h"
 #include "vector.h"
 

@@ -77,7 +77,7 @@ void r::R_TransformGuizmo(rad::selbrush_def_t* selected_brush, float* cameraView
 	vec_t bounds[] = { mins[0], mins[1], mins[2], maxs[0], maxs[1], maxs[2] };
 
 
-	ImGuizmo::Manipulate(cameraView, cameraProjection, ImGuizmo::OPERATION::TRANSLATE, mCurrentGizmoMode, mtrx, delta_matrix, 0, bounds);
+	ImGuizmo::Manipulate(cameraView, cameraProjection, ImGuizmo::OPERATION::TRANSLATE, mCurrentGizmoMode, mtrx, delta_matrix, 0, /*bounds*/0);
 	ImGui::End();
 
 

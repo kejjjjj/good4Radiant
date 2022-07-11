@@ -5,10 +5,10 @@ void r::R_Render3DWnd()
 {
 
 	uint32_t targetWindow = rad::dx->targetWindowIndex;
-	ImGui::GetBackgroundDrawList()->AddText(ImVec2(0, 0), IM_COL32(255, 0, 0, 255), "HELLO");
-	if (targetWindow != 0)
-		return;
 	
+	//if (targetWindow != 0)
+	//	return;
+	ImGui::GetBackgroundDrawList()->AddText(ImVec2(0, 0), IM_COL32(255, 0, 0, 255), std::to_string(rad::gridSizes[rad::g_qeglobals->d_gridsize]).c_str());
 	rad::GfxWindowTarget wnd = rad::dx->windows[targetWindow];
 
 	rad::selbrush_def_t* selected_brush =  rad::g_selected_brushes();
@@ -19,11 +19,15 @@ void r::R_Render3DWnd()
 
 	vec2_t screen;
 	vec3_t org;
-
-	if (GetAsyncKeyState(VK_PRIOR) & 1)
-		rad::g_select_delete();
- 
+	vec3_t dir;
 	rad::GetBrushOrigin(selected_brush, org);
+
+	if (GetAsyncKeyState(VK_PRIOR) & 1) {
+		rad::g_select_move(org, vec3_t{ 0,90,0 }, vec3_t{ 0, 0, 32 });
+		std::cout << "update selection!\n";
+	}
+ 
+	
 
 	R_BeginGuizmo(selected_brush);
 

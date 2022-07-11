@@ -25,6 +25,22 @@ namespace rad
 		PATCH_CAP = 0x1000,
 		PATCH_THICK = 0x4000,
 	};
+	enum UPDATEBITS
+	{
+		W_CAMERA = 0x1,
+		W_XY = 0x2,
+		W_XY_OVERLAY = 0x4,
+		W_Z = 0x8,
+		W_TEXTURE = 0x10,
+		W_Z_OVERLAY = 0x20,
+		W_CONSOLE = 0x40,
+		W_ENTITY = 0x80,
+		W_CAMERA_IFON = 0x100,
+		W_XZ = 0x200,
+		W_YZ = 0x400,
+		W_GROUP = 0x800,
+		W_MEDIA = 0x1000,
+	};
 
 	enum RadiantCommandType
 	{

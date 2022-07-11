@@ -40,6 +40,9 @@
     <Filter Include="Source Files\math">
       <UniqueIdentifier>{e70edbc1-b4e6-46b2-8168-fdba27479798}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\render\3d_view\OnCamera">
+      <UniqueIdentifier>{0593ea52-0e99-4cf8-992d-eaa8619e99b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="h.h">
@@ -126,6 +129,12 @@
     <ClInclude Include="matrix.h">
       <Filter>Source Files\math</Filter>
     </ClInclude>
+    <ClInclude Include="r_on_camera.h">
+      <Filter>Source Files\render\3d_view\OnCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="entry.cpp">
@@ -201,6 +210,12 @@
       <Filter>Source Files\math</Filter>
     </ClCompile>
     <ClCompile Include="matrix.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="r_on_camera.cpp">
+      <Filter>Source Files\render\3d_view\OnCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="math.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
   </ItemGroup>
