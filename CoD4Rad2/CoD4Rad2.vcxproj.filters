@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\_libs">
+      <UniqueIdentifier>{d64c39bf-baea-48ee-a0f5-c15520c31522}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\_libs\detours">
+      <UniqueIdentifier>{d063265c-92ac-4c04-8f23-0eff699fe765}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rad">
+      <UniqueIdentifier>{962788db-06ff-41c8-bd31-1708f42666eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\render">
+      <UniqueIdentifier>{8554ec4a-fd33-4c18-a5fd-9d5a9f24008c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\render\ui">
+      <UniqueIdentifier>{f6a711fe-a711-40cd-ba54-49f533e3e554}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\_libs\ImGui">
+      <UniqueIdentifier>{49027f13-89dc-45b8-ade2-32ad5c6cc60d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\render\guizmo">
+      <UniqueIdentifier>{0c42feaf-a8c8-49f9-82c7-ef34d34c11d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\render\3d_view">
+      <UniqueIdentifier>{06dda671-b57c-4e98-92fd-fe2c14833b1b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="h.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rad_entrypoint.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="detours\detours.h">
+      <Filter>Header Files\_libs\detours</Filter>
+    </ClInclude>
+    <ClInclude Include="rad_local.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="rad_functions.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="rad_offsets.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="r_init.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="r_wnd.h">
+      <Filter>Source Files\render\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="rad_vars.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_dx9.h">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_win32.h">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_internal.h">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_rectpack.h">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_textedit.h">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_truetype.h">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui.h">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imconfig.h">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\ImCurveEdit.h">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\ImGradient.h">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\ImGuizmo.h">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\ImSequencer.h">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\ImZoomSlider.h">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\GraphEditor.h">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="r_ui.h">
+      <Filter>Source Files\render\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="r_quizmo.h">
+      <Filter>Source Files\render\guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix.h">
+      <Filter>Source Files\render\guizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="r_3d.h">
+      <Filter>Source Files\render\3d_view</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="entry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rad_entrypoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="koukku.cpp">
+      <Filter>Header Files\_libs</Filter>
+    </ClCompile>
+    <ClCompile Include="r_init.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="r_main.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="r_wnd.cpp">
+      <Filter>Source Files\render\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx9.cpp">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_win32.cpp">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_tables.cpp">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_demo.cpp">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_widgets.cpp">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\ImGradient.cpp">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\ImGuizmo.cpp">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\ImSequencer.cpp">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\GraphEditor.cpp">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\ImCurveEdit.cpp">
+      <Filter>Header Files\_libs\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="r_ui.cpp">
+      <Filter>Source Files\render\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="r_guizmo.cpp">
+      <Filter>Source Files\render\guizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="matrix.cpp">
+      <Filter>Source Files\render\guizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="rad_functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="r_3d.cpp">
+      <Filter>Source Files\render\3d_view</Filter>
+    </ClCompile>
+    <ClCompile Include="r_3d_utils.cpp">
+      <Filter>Source Files\render\3d_view</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="detours\detours.lib">
+      <Filter>Header Files\_libs\detours</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
