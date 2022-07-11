@@ -20,6 +20,9 @@ void r::R_Render3DWnd()
 	vec2_t screen;
 	vec3_t org;
 
+	if (GetAsyncKeyState(VK_PRIOR) & 1)
+		rad::g_select_delete();
+ 
 	rad::GetBrushOrigin(selected_brush, org);
 
 	R_BeginGuizmo(selected_brush);

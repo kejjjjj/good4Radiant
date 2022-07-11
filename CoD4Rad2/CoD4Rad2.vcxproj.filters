@@ -37,6 +37,9 @@
     <Filter Include="Source Files\render\3d_view">
       <UniqueIdentifier>{06dda671-b57c-4e98-92fd-fe2c14833b1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\math">
+      <UniqueIdentifier>{e70edbc1-b4e6-46b2-8168-fdba27479798}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="h.h">
@@ -114,11 +117,14 @@
     <ClInclude Include="r_quizmo.h">
       <Filter>Source Files\render\guizmo</Filter>
     </ClInclude>
-    <ClInclude Include="matrix.h">
-      <Filter>Source Files\render\guizmo</Filter>
-    </ClInclude>
     <ClInclude Include="r_3d.h">
       <Filter>Source Files\render\3d_view</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix.h">
+      <Filter>Source Files\math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -182,9 +188,6 @@
     <ClCompile Include="r_guizmo.cpp">
       <Filter>Source Files\render\guizmo</Filter>
     </ClCompile>
-    <ClCompile Include="matrix.cpp">
-      <Filter>Source Files\render\guizmo</Filter>
-    </ClCompile>
     <ClCompile Include="rad_functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -193,6 +196,12 @@
     </ClCompile>
     <ClCompile Include="r_3d_utils.cpp">
       <Filter>Source Files\render\3d_view</Filter>
+    </ClCompile>
+    <ClCompile Include="vector.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="matrix.cpp">
+      <Filter>Source Files\math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

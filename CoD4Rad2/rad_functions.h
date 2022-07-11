@@ -17,6 +17,8 @@ namespace rad
 	void GetBrushOrigin(selbrush_def_t* brush, vec3_t out);
 	void GetBrushBounds(selbrush_def_t* brush, vec3_t out);
 
+	inline void (*g_select_delete)() = (void (__cdecl*)())0x0425690;
+	inline void (*g_select_move)(vec3_t origin, vec3_t dir, vec3_t move) = (void(__cdecl*)(vec3_t, vec3_t, vec3_t))0x47F0C0;
 }
 
 #endif

@@ -30,10 +30,6 @@ void Subtract(vec3_t src, vec3_t dst, vec3_t out);
 float Magnitude(vec3_t vec);
 float Distance(vec3_t src, vec3_t dst);
 
-void clamp_vec3(const vec3_t a, const vec3_t b, vec3_t o1, vec3_t o2);
-void add(const vec3_t veca, const vec3_t vecb, vec3_t out);
-void scale(const vec3_t in, float scale, vec3_t out);
-void set_vec3(vec3_t v, float val);
 
 inline void (*MatrixForViewer)(float(*mtx)[4], const float* origin, const float(*axis)[3]) = (void(__cdecl*)(float(*)[4], const float*, const float(*)[3]))0x4A7A70;
 inline void (*R_SetupProjection)(float(*mtx)[4], float halfFovX, float halfFovY, float zNear) = (void(__cdecl*)(float(*)[4], float, float, float))0x4A78E0;

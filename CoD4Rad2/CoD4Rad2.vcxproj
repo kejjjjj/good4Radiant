@@ -190,6 +190,7 @@
     <ClInclude Include="rad_local.h" />
     <ClInclude Include="rad_offsets.h" />
     <ClInclude Include="r_init.h" />
+    <ClInclude Include="vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="entry.cpp" />
@@ -216,6 +217,7 @@
     <ClCompile Include="r_main.cpp" />
     <ClCompile Include="r_ui.cpp" />
     <ClCompile Include="r_wnd.cpp" />
+    <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="detours\detours.lib" />
