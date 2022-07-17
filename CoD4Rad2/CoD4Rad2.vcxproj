@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="afx.h" />
     <ClInclude Include="detours\detours.h" />
     <ClInclude Include="ImGui\GraphEditor.h" />
     <ClInclude Include="ImGui\imconfig.h" />
@@ -178,8 +179,10 @@
     <ClInclude Include="ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="ImGui\ImZoomSlider.h" />
+    <ClInclude Include="imgui_addon.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="matrix.h" />
+    <ClInclude Include="rad_proc_events.h" />
     <ClInclude Include="rad_vars.h" />
     <ClInclude Include="r_3d.h" />
     <ClInclude Include="r_on_camera.h" />
@@ -195,6 +198,7 @@
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="afx.cpp" />
     <ClCompile Include="entry.cpp" />
     <ClCompile Include="ImGui\GraphEditor.cpp" />
     <ClCompile Include="ImGui\ImCurveEdit.cpp" />
@@ -208,11 +212,13 @@
     <ClCompile Include="ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="ImGui\ImSequencer.cpp" />
+    <ClCompile Include="imgui_addon.cpp" />
     <ClCompile Include="koukku.cpp" />
     <ClCompile Include="math.cpp" />
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="rad_entrypoint.cpp" />
     <ClCompile Include="rad_functions.cpp" />
+    <ClCompile Include="rad_proc_events.cpp" />
     <ClCompile Include="r_3d.cpp" />
     <ClCompile Include="r_3d_utils.cpp" />
     <ClCompile Include="r_guizmo.cpp" />

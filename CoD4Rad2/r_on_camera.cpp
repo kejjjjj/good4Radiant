@@ -55,7 +55,7 @@ void r::TransformObjectByView(CAM_DIRECTION dir, vec3_t outmove)
 	vec3_t cameraDir{};
 	vec::scale3(rad::rg->viewDir, 180, cameraDir);
 
-	float axial = GetAxialAngle(cameraDir[1]);
+	float axial = GetAxialYaw(cameraDir[1]);
 
 	int grid = rad::gridSizes[rad::g_qeglobals->d_gridsize];
 	vec3_t move;

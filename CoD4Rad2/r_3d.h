@@ -12,7 +12,7 @@ namespace r
 
 	//utils
 	bool R_WorldToScreen(vec3_t pos, vec2_t xy);
-	float GetAxialAngle(float dir);
+	float GetAxialYaw(float dir);
 }
 
 

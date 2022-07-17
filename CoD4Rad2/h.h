@@ -23,6 +23,7 @@ typedef vec_t vec4_t[4];
 
 #define MENU_KEY VK_HOME
 
+
 #include <Windows.h>
 #include <iostream>
 #include <vector>
@@ -35,6 +36,8 @@ typedef vec_t vec4_t[4];
 #include <psapi.h>
 #include <corecrt_math.h>
 #include <corecrt_math_defines.h>
+
+typedef tagPOINT CPoint;
 
 //detours
 #include "detours/detours.h"
@@ -64,6 +67,8 @@ typedef vec_t vec4_t[4];
 namespace fs = std::filesystem;
 using namespace std::chrono_literals;
 
+#include "afx.h"
+
 #include "D:\what\aavikko\aavikko\koukku.h"
 #include "rad_local.h"
 #include "rad_offsets.h"
@@ -82,5 +87,8 @@ using namespace std::chrono_literals;
 #include "vector.h"
 
 #include "r_wnd.h"
+
+#include "imgui_addon.h"
+#include "rad_proc_events.h"
 
 #endif

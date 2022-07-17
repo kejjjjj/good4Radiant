@@ -19,6 +19,8 @@ namespace r
 	typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);
 	extern LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
+	LRESULT __stdcall CamWndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam); //hook
+
 	inline LPD3DXFONT font1, font1out;
 
 	void R_CreateFonts();

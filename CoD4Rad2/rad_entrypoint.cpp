@@ -6,20 +6,9 @@ void rad::Rad_ExternalMsgHandler()
 	while (true) {
 
 
-		rad::selbrush_def_t* selected_brush = rad::g_selected_brushes();
+		*rad::g_nUpdateBits = -1;
 
-		if (!selected_brush || selected_brush->facecount < 1)
-			continue;
-
-		vec3_t org;
-		rad::GetBrushOrigin(selected_brush, org);
-
-		if (GetAsyncKeyState(VK_PRIOR) & 1) {
-			rad::g_select_move(org, vec3_t{ 0,90,0 }, vec3_t{ 0, 0, 32 });
-			*rad::g_nUpdateBits |= W_CAMERA;
-			std::cout << "update selection!\n";
-		}
-		Sleep(100);
+		Sleep(1000);
 	}
 }
 char OnCameraLeft(void* ye)
@@ -45,6 +34,8 @@ void rad::CG_DllEntry(HMODULE hModule, LPTHREAD_START_ROUTINE startAddr)
 	a->install(0x426720, r::OnCameraLeft);
 	a->install(0x4266B0, r::OnCameraForward);
 	a->install(0x426610, r::OnCameraBack);
+	a->install(0x402D90, r::CamWndProc);
+	a->install(0x403160, ccamwnd::on_lbutton_down);
 
-	
+	a->nop(0x53B2C3); //shader constants..
 }

@@ -7,6 +7,7 @@ void r::R_StartRender()
     ImGui_ImplDX9_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
+    ImGuizmo::BeginFrame();
 }
 
 void r::R_EndRender()

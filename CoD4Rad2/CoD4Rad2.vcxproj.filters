@@ -19,9 +19,6 @@
     <Filter Include="Header Files\_libs\detours">
       <UniqueIdentifier>{d063265c-92ac-4c04-8f23-0eff699fe765}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\rad">
-      <UniqueIdentifier>{962788db-06ff-41c8-bd31-1708f42666eb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\render">
       <UniqueIdentifier>{8554ec4a-fd33-4c18-a5fd-9d5a9f24008c}</UniqueIdentifier>
     </Filter>
@@ -43,25 +40,34 @@
     <Filter Include="Source Files\render\3d_view\OnCamera">
       <UniqueIdentifier>{0593ea52-0e99-4cf8-992d-eaa8619e99b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\radiant">
+      <UniqueIdentifier>{d7cba44e-dde9-4404-b977-9636c997ee69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\radiant">
+      <UniqueIdentifier>{962788db-06ff-41c8-bd31-1708f42666eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\_libs\ImGui_addon">
+      <UniqueIdentifier>{8d6389f5-d73c-4ca8-9890-c3ad1ac25619}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\cam">
+      <UniqueIdentifier>{989791e4-0296-4fa1-ab1e-4faa8212a318}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="h.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="rad_entrypoint.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="detours\detours.h">
       <Filter>Header Files\_libs\detours</Filter>
     </ClInclude>
     <ClInclude Include="rad_local.h">
-      <Filter>Header Files\rad</Filter>
+      <Filter>Header Files\radiant</Filter>
     </ClInclude>
     <ClInclude Include="rad_functions.h">
-      <Filter>Header Files\rad</Filter>
+      <Filter>Header Files\radiant</Filter>
     </ClInclude>
     <ClInclude Include="rad_offsets.h">
-      <Filter>Header Files\rad</Filter>
+      <Filter>Header Files\radiant</Filter>
     </ClInclude>
     <ClInclude Include="r_init.h">
       <Filter>Source Files\render</Filter>
@@ -70,7 +76,7 @@
       <Filter>Source Files\render\ui</Filter>
     </ClInclude>
     <ClInclude Include="rad_vars.h">
-      <Filter>Header Files\rad</Filter>
+      <Filter>Header Files\radiant</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imgui_impl_dx9.h">
       <Filter>Header Files\_libs\ImGui</Filter>
@@ -135,12 +141,21 @@
     <ClInclude Include="math.h">
       <Filter>Source Files\math</Filter>
     </ClInclude>
+    <ClInclude Include="rad_entrypoint.h">
+      <Filter>Source Files\radiant</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_addon.h">
+      <Filter>Header Files\_libs\ImGui_addon</Filter>
+    </ClInclude>
+    <ClInclude Include="rad_proc_events.h">
+      <Filter>Source Files\cam</Filter>
+    </ClInclude>
+    <ClInclude Include="afx.h">
+      <Filter>Header Files\_libs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="entry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rad_entrypoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="koukku.cpp">
@@ -197,9 +212,6 @@
     <ClCompile Include="r_guizmo.cpp">
       <Filter>Source Files\render\guizmo</Filter>
     </ClCompile>
-    <ClCompile Include="rad_functions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="r_3d.cpp">
       <Filter>Source Files\render\3d_view</Filter>
     </ClCompile>
@@ -217,6 +229,21 @@
     </ClCompile>
     <ClCompile Include="math.cpp">
       <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="rad_entrypoint.cpp">
+      <Filter>Source Files\radiant</Filter>
+    </ClCompile>
+    <ClCompile Include="rad_functions.cpp">
+      <Filter>Source Files\radiant</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_addon.cpp">
+      <Filter>Header Files\_libs\ImGui_addon</Filter>
+    </ClCompile>
+    <ClCompile Include="rad_proc_events.cpp">
+      <Filter>Source Files\cam</Filter>
+    </ClCompile>
+    <ClCompile Include="afx.cpp">
+      <Filter>Header Files\_libs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -41,7 +41,7 @@ bool r::R_WorldToScreen(vec3_t pos, vec2_t xy)
 	
 	return true;
 }
-float r::GetAxialAngle(float dir)
+float r::GetAxialYaw(float dir)
 {
 	dir = normalize(dir);
 

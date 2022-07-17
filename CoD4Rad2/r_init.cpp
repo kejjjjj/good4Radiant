@@ -15,22 +15,23 @@ void r::R_CreateFonts()
 bool r::R_Init()
 {
 	pDevice = *(IDirect3DDevice9**)&rad::dx->device;
-	HWND window = rad::g_qeglobals->d_hwndMain;
+	//HWND window = rad::dx->windows[0].hwnd;
 	//HWND hwnd = FindWindowA(NULL, glob::windowname);
-	oWndProc = (WNDPROC)SetWindowLongPtr(window, GWL_WNDPROC, (LONG_PTR)WndProc);
+	//oWndProc = (WNDPROC)SetWindowLongPtr(window, GWL_WNDPROC, (LONG_PTR)WndProc);
 	if (!pDevice) {
 		std::cout << "IDirect3DDevice9 nullptr!\n";
 		return false;
 	}
-	std::cout << "IDirect3DDevice9 hooked!\n";
-	pD3D = Direct3DCreate9(D3D_SDK_VERSION);
+	
+
+	//pD3D = Direct3DCreate9(D3D_SDK_VERSION);
 
 	void** vTable = *reinterpret_cast<void***>(pDevice);
-
+	std::cout << "IDirect3DDevice9 hooked! (" << vTable[42] << ")\n";
 	pEndScene = (endScene)DetourFunction((PBYTE)vTable[42], (PBYTE)D3D_DRAW);
 
 	pDevice->Release();
-	pD3D->Release();
+	//pD3D->Release();
 
 	return true;
 }
@@ -60,11 +61,10 @@ DWORD WINAPI r::R_CheckStatus(HINSTANCE hModule)
 
 	while (!false) {
 		if (rad::dx->deviceLost) {
-			std::cout << "device lost!\n";
+			//std::cout << "device lost!\n";
 			R_ResetDevice();
 		}
-		Sleep(500);
-
+		Sleep(10);
 
 	}
 	return true;
@@ -76,12 +76,17 @@ void r::R_InitImGUI()
 		return;
 
 	glob::ImGui_Init = !glob::ImGui_Init;
+	ImGui::SetCurrentContext(vars::m_ggui_context);
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-	ImGui_ImplWin32_Init(rad::g_qeglobals->d_hwndMain);
+	
+	ImGui_ImplWin32_Init(rad::g_qeglobals->d_hwndCamera);
 	ImGui_ImplDX9_Init(pDevice);
 	ImFont* font = nullptr;
+	io.WantCaptureMouse = true;
+
+	
 
 	std::string font_directory = "C:\\Windows\\Fonts\\Arial.ttf";
 

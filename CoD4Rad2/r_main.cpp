@@ -1,12 +1,47 @@
 #include "h.h"
 
+LRESULT __stdcall r::CamWndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+	struct tagRECT Rect; // [esp+8h] [ebp-10h] BYREF
+
+	GetClientRect(hWnd, &Rect);
+	if (Msg >= WM_SETFOCUS)
+	{
+		if (Msg <= WM_KILLFOCUS)
+		{
+			SendMessageA(hWnd, WM_NCACTIVATE, Msg == 7, 0);
+			return 0;
+		}
+		if (Msg == WM_NCCALCSIZE)
+		{
+			DefWindowProcA(hWnd, WM_NCCALCSIZE, wParam, lParam);
+			return 768;
+		}
+	}
+	switch (Msg) {
+	case WM_SYSCOMMAND:
+		if ((wParam & 0xfff0) == SC_KEYMENU)
+			return 0;
+		break;
+	case WM_DESTROY:
+		ImGui_ImplDX9_InvalidateDeviceObjects();
+		FreeConsole();
+		exit(1);
+		::PostQuitMessage(1);
+	}
+
+	return DefWindowProcA(hWnd, Msg, wParam, lParam);
+}
+
 LRESULT CALLBACK r::WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-	//if (GetKeyState(MENU_KEY) == 1) {
-	//	ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
-	//	//if (GetAsyncKeyState(VK_HOME) & 1)
-	//	//	Game::iPrintLn("^2Menu controls!");
-	//	return 1l;
-	//}
+	
+	
+
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam)) {
+		//vars::guizmo::give_imgui_mouse = false;
+		return true;
+	}
+	
 	switch (uMsg) {
 	case WM_SYSCOMMAND:
 		if ((wParam & 0xfff0) == SC_KEYMENU)
@@ -28,7 +63,13 @@ HRESULT __stdcall r::D3D_DRAW(IDirect3DDevice9* pDevice) {
 
 	R_Render3DWnd();
 
+	//for (int i = 0; i < 10; i++)
+	//	std::cout << i << ' ';
+	//std::cout << '\n';
+
 	R_EndRender();
+
+	//Sleep(1000);
 
 	return pEndScene(pDevice);
 }
