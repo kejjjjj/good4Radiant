@@ -63,13 +63,9 @@ HRESULT __stdcall r::D3D_DRAW(IDirect3DDevice9* pDevice) {
 
 	R_Render3DWnd();
 
-	//for (int i = 0; i < 10; i++)
-	//	std::cout << i << ' ';
-	//std::cout << '\n';
+
 
 	R_EndRender();
-
-	//Sleep(1000);
 
 	return pEndScene(pDevice);
 }

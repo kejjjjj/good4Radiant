@@ -19,7 +19,7 @@ void r::R_Render3DWnd()
 		return;
 	}
 	
-
+	R_InputHandler();
 	R_BeginGuizmo(selected_brush);
 
 	//vec2_t screen;

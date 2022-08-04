@@ -19,6 +19,7 @@ bool r::R_WorldToScreen(vec3_t pos, vec2_t xy)
 	float halfFovY = tan(fov * 0.01745329238474369f * 0.5f) * 0.75f;
 	float halfFovX = halfFovY * ((float)target.width / (float)target.height);
 
+
 	D3DXVECTOR3 vLocal, vTransForm;
 	D3DXVECTOR3 vright = vparms->axis[1],
 		vup = vparms->axis[2],

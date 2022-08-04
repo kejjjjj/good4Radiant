@@ -7,6 +7,7 @@
 
 namespace r
 {
+	void R_InputHandler();
 	void R_StartRender();
 	void R_EndRender();
 }

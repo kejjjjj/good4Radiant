@@ -73,28 +73,36 @@ void r::R_TransformGuizmo(rad::selbrush_def_t* selected_brush, float* cameraView
 
 	vec_t bounds[] = { mins[0], mins[1], mins[2], maxs[0], maxs[1], maxs[2] };
 
-	io.AddMouseButtonEvent(0, true);
+	//io.AddMouseButtonEvent(0, true);
 
+	float grid = rad::gridSizes[rad::g_qeglobals->d_gridsize];
+	static float _bounds[] = { -grid, -grid, -grid, grid, grid, grid };
 
-	if (ImGuizmo::IsOver())
-		vars::guizmo::give_imgui_mouse = true;
-	else vars::guizmo::give_imgui_mouse = false;
+	//if (ImGuizmo::IsOver())
+	//	vars::guizmo::give_imgui_mouse = true;
+	//else vars::guizmo::give_imgui_mouse = false;
 
-	ImGuizmo::Manipulate(cameraView, cameraProjection, mCurrentGizmoOperation, ImGuizmo::WORLD, mtrx, deltamtrx, vec3_t{ 1,1,1 }, /*bounds*/0);
+	rad::GfxViewParms* vparms = rad::gfxCmdBufSourceState->viewParms3D;
+	
+	float orgHeight = vparms->origin[2];
 
-
-	float delta_origin[3], delta_angles[3];
-	ImGuizmo::DecomposeMatrixToComponents(deltamtrx, delta_origin, delta_angles, scale);
+	ImGuizmo::Manipulate(cameraView, cameraProjection, mCurrentGizmoOperation, ImGuizmo::LOCAL, mtrx, deltamtrx, vec3_t{ 1,1,1 }, bounds);
 	
 
-	
+	if (ImGuizmo::IsUsing()) {
+		float delta_origin[3], _delta_origin[3], delta_angles[3];
+		ImGuizmo::DecomposeMatrixToComponents(deltamtrx, delta_origin, delta_angles, scale);
+		ImGuizmo::DecomposeMatrixToComponents(mtrx, _delta_origin, delta_angles, scale);
 
-	std::string ok = "lol u gotta manipulate it: " + std::to_string(ImGuizmo::IsUsing());
+		std::string deltaOrg = std::to_string(delta_origin[2]) + '\n' + std::to_string(_delta_origin[2]);
+		ImGui::GetBackgroundDrawList()->AddText(ImVec2(0, 0), IM_COL32(0, 255, 0, 255), deltaOrg.c_str());
+		//if (ImGuizmo::IsUsing()) {
+		//	ImGui::GetBackgroundDrawList()->AddText(ImVec2(0, 0), IM_COL32(0, 255, 0, 255), deltaOrg.c_str());
+		//}
 
-	ImGui::GetBackgroundDrawList()->AddText(ImVec2(0, 0), IM_COL32(0, 255, 0, 255), ok.c_str());
-	
+	}
 
-	io.AddMouseButtonEvent(0, false);
+	//io.AddMouseButtonEvent(0, false);
 
 	ImGui::End();
 

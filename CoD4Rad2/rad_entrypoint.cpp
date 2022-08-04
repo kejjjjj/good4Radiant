@@ -8,7 +8,7 @@ void rad::Rad_ExternalMsgHandler()
 
 		*rad::g_nUpdateBits = -1;
 
-		Sleep(1000);
+		Sleep(10);
 	}
 }
 char OnCameraLeft(void* ye)
@@ -35,7 +35,7 @@ void rad::CG_DllEntry(HMODULE hModule, LPTHREAD_START_ROUTINE startAddr)
 	a->install(0x4266B0, r::OnCameraForward);
 	a->install(0x426610, r::OnCameraBack);
 	a->install(0x402D90, r::CamWndProc);
-	a->install(0x403160, ccamwnd::on_lbutton_down);
+	//a->install(0x403160, ccamwnd::on_lbutton_down);
 
 	a->nop(0x53B2C3); //shader constants..
 }

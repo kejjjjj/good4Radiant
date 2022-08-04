@@ -1,13 +1,18 @@
 #include "h.h"
 
 
-void hook::install(std::uintptr_t address, void* fnc)
+BYTE* hook::install(std::uintptr_t address, void* fnc)
 {
-	DetourFunction(PBYTE(address), PBYTE(fnc));
+
+	return DetourFunction((PBYTE)address, (PBYTE)fnc);
 }
-void hook::install(void* address, void* fnc)
+BYTE* hook::install(void* address, void* fnc)
 {
-	DetourFunction(PBYTE(address), PBYTE(fnc));
+	return DetourFunction((PBYTE)address, (PBYTE)fnc);
+}
+BOOL hook::remove(void* Trampoline, void* detourFunc)
+{
+	return DetourRemove((PBYTE)Trampoline, (PBYTE)detourFunc);
 }
 void hook::nop(std::uintptr_t address)
 {
@@ -31,37 +36,31 @@ void hook::write_addr(std::uintptr_t addr, const char* bytes, size_t len)
 {
 	write_addr((void*)addr, bytes, len);
 }
-void hook::write_addr(void* addr, char* byte)
+void hook::write_addr(void* addr, BYTE* byte, size_t len)
 {
 	DWORD oldProtect;
 
-	VirtualProtect(addr, 1, PAGE_EXECUTE_READWRITE, &oldProtect);
-	memcpy(addr, byte, 1);
+	VirtualProtect(addr, len, PAGE_EXECUTE_READWRITE, &oldProtect);
+	memcpy(addr, byte, len);
 #pragma warning(suppress: 6387)
-	VirtualProtect((LPVOID)addr, 1, oldProtect, NULL);
+	VirtualProtect((LPVOID)addr, len, oldProtect, NULL);
 }
-void hook::get_bytes(void* addr, size_t len, char* buffer)
+void hook::get_bytes(void* addr, size_t len, BYTE* buffer)
 {
+	std::stringstream ss;
+	std::string string;
 
-	std::cout << "reading from: " << std::hex << (size_t)addr << '\n';
-	//static char buffer[1024 * 4];
-	int chars = 0;
-	char* _bytes{};
+	for (uint32_t i = 0; i < len; i++)
+	{
+		string = std::format("{:#x}", *(BYTE*)((size_t)addr + i));
+		string.erase(0, 2);
+		std::istringstream str(string);
 
-	for (size_t i = 0; i < len; i++) {
-		if (chars >= 0 && chars < 1024 * 4) {
-			chars += snprintf(buffer + chars, len, "%02x", *(BYTE*)((size_t)addr + i));
-			continue;
-		}
-		break;
+		uint16_t val{};
+		str >> std::hex >> val;
+		buffer[i] = (BYTE)val;
 	}
-#pragma warning(suppress: 6386)
-	buffer[chars + 1] = '\0';
 
-}
-void hook::get_bytes(std::uintptr_t addr, size_t len, char* buffer)
-{
-	get_bytes((void*)addr, len, buffer);
 }
 std::uintptr_t hook::find_pattern(std::string moduleName, std::string pattern)
 {
