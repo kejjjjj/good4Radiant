@@ -35,6 +35,9 @@ void rad::CG_DllEntry(HMODULE hModule, LPTHREAD_START_ROUTINE startAddr)
 	a->install(0x4266B0, r::OnCameraForward);
 	a->install(0x426610, r::OnCameraBack);
 	a->install(0x402D90, r::CamWndProc);
+
+	Drag_MouseMoved_f = (Drag_MouseMoved_h)a->install(0x47FF30, Drag_MouseMoved);
+
 	//a->install(0x403160, ccamwnd::on_lbutton_down);
 
 	a->nop(0x53B2C3); //shader constants..

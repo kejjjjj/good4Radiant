@@ -63,9 +63,6 @@
     <ClInclude Include="rad_local.h">
       <Filter>Header Files\radiant</Filter>
     </ClInclude>
-    <ClInclude Include="rad_functions.h">
-      <Filter>Header Files\radiant</Filter>
-    </ClInclude>
     <ClInclude Include="rad_offsets.h">
       <Filter>Header Files\radiant</Filter>
     </ClInclude>
@@ -152,6 +149,9 @@
     </ClInclude>
     <ClInclude Include="afx.h">
       <Filter>Header Files\_libs</Filter>
+    </ClInclude>
+    <ClInclude Include="rad_functions.h">
+      <Filter>Source Files\radiant</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="afx.cpp">
       <Filter>Header Files\_libs</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

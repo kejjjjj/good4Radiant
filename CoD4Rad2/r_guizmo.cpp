@@ -6,7 +6,7 @@ void r::R_QuizmoMatrices(float(*view)[4], float(*projection)[4])
 	rad::GfxViewParms* vparms = rad::gfxCmdBufSourceState->viewParms3D;
 	rad::GfxWindowTarget target = rad::dx->windows[0];
 
-	MatrixForViewer(view, vparms->origin, (float(*)[3])vparms->axis);
+	MatrixForViewer(view, rad::rg->viewOrg, (float(*)[3])vparms->axis);
 
 	float fov = *(float*)0x25D6028;
 	float halfFovY = tan(fov * 0.01745329238474369f * 0.5f) * 0.75f;
@@ -42,7 +42,7 @@ void r::R_QuizmoMatrices(float(*view)[4], float(*projection)[4])
 	mtx3x3_mul((float(*)[3])projection, -1);
 
 }
-void r::R_TransformGuizmo(rad::selbrush_def_t* selected_brush, float* cameraView, float* cameraProjection)
+void r::R_SetupGuizmo(rad::selbrush_def_t* selected_brush, float* cameraView, float* cameraProjection)
 {
 	
 	ImGuiIO& io = ImGui::GetIO();
@@ -53,9 +53,9 @@ void r::R_TransformGuizmo(rad::selbrush_def_t* selected_brush, float* cameraView
 	rad::GetBrushOrigin(selected_brush, selection_center);
 	float rotation[3] = { 0.0f, 0.0f, 0.0f };
 	float scale[3] = { 1.0f, 1.0f, 1.0f };
-	float mtrx[16], deltamtrx[16];
+	float matrix[16], delta_matrix[16];
 
-	ImGuizmo::RecomposeMatrixFromComponents(selection_center, rotation, scale, mtrx);
+	ImGuizmo::RecomposeMatrixFromComponents(selection_center, rotation, scale, matrix);
 
 	//mCurrentGizmoMode = ImGuizmo::WORLD;
 
@@ -73,32 +73,52 @@ void r::R_TransformGuizmo(rad::selbrush_def_t* selected_brush, float* cameraView
 
 	vec_t bounds[] = { mins[0], mins[1], mins[2], maxs[0], maxs[1], maxs[2] };
 
-	//io.AddMouseButtonEvent(0, true);
 
 	float grid = rad::gridSizes[rad::g_qeglobals->d_gridsize];
-	static float _bounds[] = { -grid, -grid, -grid, grid, grid, grid };
 
-	//if (ImGuizmo::IsOver())
-	//	vars::guizmo::give_imgui_mouse = true;
-	//else vars::guizmo::give_imgui_mouse = false;
 
-	rad::GfxViewParms* vparms = rad::gfxCmdBufSourceState->viewParms3D;
+	imguizmo.isManipulating = ImGuizmo::Manipulate(cameraView, cameraProjection, mCurrentGizmoOperation, ImGuizmo::LOCAL, matrix, delta_matrix, vec3_t{grid * 2,grid * 2 ,grid * 2});
+	imguizmo.isOver			= ImGuizmo::IsOver();
+	imguizmo.isUsing		= ImGuizmo::IsUsing();
+
+
+	if (imguizmo.isUsing && imguizmo.isManipulating) {
+		if (imguizmo.isOver) {
+			vec3_t delta_origin, delta_angles, scale;
+			ImGuizmo::DecomposeMatrixToComponents(delta_matrix, delta_origin, delta_angles, scale);
+
+			const float max_move = grid;
+
+			if (delta_origin[0] >= max_move) {
+				delta_origin[0] = max_move;
+			}
+
+			if (delta_origin[1] >= max_move) {
+				delta_origin[1] = max_move;
+			}
+
+			if (delta_origin[2] >= max_move) {
+				delta_origin[2] = max_move;
+			}
+
+			if (delta_origin[0] <= -max_move) {
+				delta_origin[0] = -max_move;
+			}
+
+			if (delta_origin[1] <= -max_move) {
+				delta_origin[1] = -max_move;
+			}
+
+			if (delta_origin[2] <= -max_move) {
+				delta_origin[2] = -max_move;
+			}
+
+
+
+			R_TransformGuizmo(delta_origin, selected_brush, grid);
+		}
+
 	
-	float orgHeight = vparms->origin[2];
-
-	ImGuizmo::Manipulate(cameraView, cameraProjection, mCurrentGizmoOperation, ImGuizmo::LOCAL, mtrx, deltamtrx, vec3_t{ 1,1,1 }, bounds);
-	
-
-	if (ImGuizmo::IsUsing()) {
-		float delta_origin[3], _delta_origin[3], delta_angles[3];
-		ImGuizmo::DecomposeMatrixToComponents(deltamtrx, delta_origin, delta_angles, scale);
-		ImGuizmo::DecomposeMatrixToComponents(mtrx, _delta_origin, delta_angles, scale);
-
-		std::string deltaOrg = std::to_string(delta_origin[2]) + '\n' + std::to_string(_delta_origin[2]);
-		ImGui::GetBackgroundDrawList()->AddText(ImVec2(0, 0), IM_COL32(0, 255, 0, 255), deltaOrg.c_str());
-		//if (ImGuizmo::IsUsing()) {
-		//	ImGui::GetBackgroundDrawList()->AddText(ImVec2(0, 0), IM_COL32(0, 255, 0, 255), deltaOrg.c_str());
-		//}
 
 	}
 
@@ -106,8 +126,18 @@ void r::R_TransformGuizmo(rad::selbrush_def_t* selected_brush, float* cameraView
 
 	ImGui::End();
 
+	imguizmo.mouseMoved = false;
 
 
+
+}
+void r::R_TransformGuizmo(vec3_t deltaPosition, rad::selbrush_def_t* selected_brush, float grid)
+{	
+	if(imguizmo.mouseMoved)
+		rad::g_brush_move(deltaPosition, selected_brush->def, true);
+
+	std::string deltaOrg = std::to_string(deltaPosition[0]) + '\n' + std::to_string(deltaPosition[1]) + '\n'+ std::to_string(deltaPosition[2]);
+	ImGui::GetBackgroundDrawList()->AddText(ImVec2(0, 0), IM_COL32(0, 255, 0, 255), deltaOrg.c_str());
 }
 void r::R_BeginGuizmo(rad::selbrush_def_t* selected_brush)
 {
@@ -126,7 +156,7 @@ void r::R_BeginGuizmo(rad::selbrush_def_t* selected_brush)
 
 
 
-	R_TransformGuizmo(selected_brush, (float*)view, (float*)proj);
+	R_SetupGuizmo(selected_brush, (float*)view, (float*)proj);
 
 	//ImGui::GetBackgroundDrawList()->AddText(ImVec2(wnd.width / 2, wnd.height / 2), IM_COL32(0, 255, 0, 255), std::to_string(cameraView[12]).c_str());
 }

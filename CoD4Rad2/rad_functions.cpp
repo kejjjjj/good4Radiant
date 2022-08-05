@@ -44,3 +44,25 @@ void rad::GetBrushBounds(selbrush_def_t* brush, vec3_t out)
 	for (int i = 0; i < 3; i++)
 		out[i] = fabs(def->maxs[i] - def->mins[i]);
 }
+void rad::Drag_MouseMoved(int x, int y, int buttons, float* camOrigin, float* direction) //disallow radiant inputs when using imguizmo
+{
+	r::imguizmo.mouseMoved = true;
+	if (r::imguizmo.isUsing || r::imguizmo.isOver)
+		return;
+
+	return Drag_MouseMoved_f(x, y, buttons, camOrigin, direction);
+}
+void rad::g_brush_move(const float* delta, brush_t_with_custom_def* def, int snap)
+{
+	const static uint32_t func_addr = 0x47BA40;
+	__asm
+	{
+		pushad;
+		push	snap;
+		push	def;
+		mov		ebx, delta;
+		call	func_addr;
+		add     esp, 8;
+		popad;
+	}
+}
