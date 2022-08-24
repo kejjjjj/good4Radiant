@@ -32,6 +32,8 @@ namespace rad
 	static DWORD* worldEntity_ptr = (DWORD*)(0x25D5B30); // holds pointer to worldEntity
 	static DWORD* g_pParentWnd_ptr = (DWORD*)(0x25D5A70);
 
+	static SCommandInfo g_commands[187];
+
 	inline uint32_t* g_nUpdateBits = (uint32_t*)0x25D5A74;
 	inline float gridSizes[12];
 	

@@ -6,13 +6,24 @@ void r::R_QuizmoMatrices(float(*view)[4], float(*projection)[4])
 	rad::GfxViewParms* vparms = rad::gfxCmdBufSourceState->viewParms3D;
 	rad::GfxWindowTarget target = rad::dx->windows[0];
 
-	MatrixForViewer(view, rad::rg->viewOrg, (float(*)[3])vparms->axis);
+	float axis[3][3];
+
+	memcpy(&axis, &vparms->axis, sizeof(axis));
+
+	//axis[1][0] *= -1;
+	//axis[1][1] *= -1;
+	//axis[1][2] *= -1;
+
+
+	MatrixForViewer(view, rad::rg->viewOrg, axis);
 
 	float fov = *(float*)0x25D6028;
 	float halfFovY = tan(fov * 0.01745329238474369f * 0.5f) * 0.75f;
 	float halfFovX = halfFovY * ((float)target.width / (float)target.height);
 
 	R_SetupProjection(projection, halfFovX, halfFovY, 10.f);
+
+	//converts from left handed to right randed, credits to xoxor4d
 
 	float inv_view_mtx[4][4] = {
 			-1.f, 0.f, 0.f, 0.f,
@@ -37,17 +48,15 @@ void r::R_QuizmoMatrices(float(*view)[4], float(*projection)[4])
 			0.f, 1.f, 0.f, 0.f,
 			0.f, 0.f, -1.f, 0.f,
 			0.f, 0.f, 0.f, 1.f };
-	mtx4x4_mul(projection, inv_view_mtx, projection);
-	mtx4x4_mul(projection, projection, inv_view_mtx);
-	mtx3x3_mul((float(*)[3])projection, -1);
+	mtx4x4_mul(projection, inv_proj_mtx, projection);
+	mtx4x4_mul(projection, projection, inv_proj_mtx);
+	//mtx3x3_mul((float(*)[3])projection, -1);
 
 }
 void r::R_SetupGuizmo(rad::selbrush_def_t* selected_brush, float* cameraView, float* cameraProjection)
 {
 	
 	ImGuiIO& io = ImGui::GetIO();
-
-	mCurrentGizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
 
 	vec3_t selection_center, mins, maxs;
 	rad::GetBrushOrigin(selected_brush, selection_center);
@@ -77,7 +86,7 @@ void r::R_SetupGuizmo(rad::selbrush_def_t* selected_brush, float* cameraView, fl
 	float grid = rad::gridSizes[rad::g_qeglobals->d_gridsize];
 
 
-	imguizmo.isManipulating = ImGuizmo::Manipulate(cameraView, cameraProjection, mCurrentGizmoOperation, ImGuizmo::LOCAL, matrix, delta_matrix, vec3_t{grid * 2,grid * 2 ,grid * 2});
+	imguizmo.isManipulating = ImGuizmo::Manipulate(cameraView, cameraProjection, mCurrentGizmoOperation, ImGuizmo::WORLD, matrix, delta_matrix, vec3_t{grid,grid ,grid}/*, bounds*/);
 	imguizmo.isOver			= ImGuizmo::IsOver();
 	imguizmo.isUsing		= ImGuizmo::IsUsing();
 
@@ -87,43 +96,15 @@ void r::R_SetupGuizmo(rad::selbrush_def_t* selected_brush, float* cameraView, fl
 			vec3_t delta_origin, delta_angles, scale;
 			ImGuizmo::DecomposeMatrixToComponents(delta_matrix, delta_origin, delta_angles, scale);
 
-			const float max_move = grid;
-
-			if (delta_origin[0] >= max_move) {
-				delta_origin[0] = max_move;
-			}
-
-			if (delta_origin[1] >= max_move) {
-				delta_origin[1] = max_move;
-			}
-
-			if (delta_origin[2] >= max_move) {
-				delta_origin[2] = max_move;
-			}
-
-			if (delta_origin[0] <= -max_move) {
-				delta_origin[0] = -max_move;
-			}
-
-			if (delta_origin[1] <= -max_move) {
-				delta_origin[1] = -max_move;
-			}
-
-			if (delta_origin[2] <= -max_move) {
-				delta_origin[2] = -max_move;
-			}
-
 
 
 			R_TransformGuizmo(delta_origin, selected_brush, grid);
+			R_ScaleGuizmo(scale, grid);
 		}
 
 	
 
 	}
-
-	//io.AddMouseButtonEvent(0, false);
-
 	ImGui::End();
 
 	imguizmo.mouseMoved = false;
@@ -133,11 +114,22 @@ void r::R_SetupGuizmo(rad::selbrush_def_t* selected_brush, float* cameraView, fl
 }
 void r::R_TransformGuizmo(vec3_t deltaPosition, rad::selbrush_def_t* selected_brush, float grid)
 {	
+	if (mCurrentGizmoOperation != ImGuizmo::OPERATION::TRANSLATE)
+		return;
+
 	if(imguizmo.mouseMoved)
 		rad::g_brush_move(deltaPosition, selected_brush->def, true);
 
 	std::string deltaOrg = std::to_string(deltaPosition[0]) + '\n' + std::to_string(deltaPosition[1]) + '\n'+ std::to_string(deltaPosition[2]);
 	ImGui::GetBackgroundDrawList()->AddText(ImVec2(0, 0), IM_COL32(0, 255, 0, 255), deltaOrg.c_str());
+}
+void r::R_ScaleGuizmo(vec3_t scale, float grid)
+{
+	if (mCurrentGizmoOperation != ImGuizmo::OPERATION::SCALE)
+		return;
+
+	if (imguizmo.mouseMoved)
+		rad::g_select_scale(-scale[0], -scale[1], -scale[2]);
 }
 void r::R_BeginGuizmo(rad::selbrush_def_t* selected_brush)
 {

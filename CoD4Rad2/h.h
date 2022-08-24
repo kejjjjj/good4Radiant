@@ -82,6 +82,8 @@ using namespace std::chrono_literals;
 #include "r_3d.h"
 #include "r_on_camera.h"
 
+#include "w_mainframe.h"
+
 #include "math.h"
 #include "matrix.h"
 #include "vector.h"

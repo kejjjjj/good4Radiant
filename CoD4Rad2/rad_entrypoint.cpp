@@ -6,15 +6,10 @@ void rad::Rad_ExternalMsgHandler()
 	while (true) {
 
 
-		*rad::g_nUpdateBits = -1;
+		*rad::g_nUpdateBits = W_CAMERA | W_XY | W_XZ | W_YZ;
 
-		Sleep(10);
+		Sleep(50);
 	}
-}
-char OnCameraLeft(void* ye)
-{
-	std::cout << "camera left\n";
-	return 1;
 }
 void rad::CG_DllEntry(HMODULE hModule, LPTHREAD_START_ROUTINE startAddr)
 {
@@ -23,18 +18,23 @@ void rad::CG_DllEntry(HMODULE hModule, LPTHREAD_START_ROUTINE startAddr)
 
 	while (!*(IDirect3DDevice9**)&dx->device)
 		std::this_thread::sleep_for(100ms);
-	
+
+
 	std::thread(r::R_CheckStatus, hModule).detach();
 	std::thread(Rad_ExternalMsgHandler).detach();
+
 	std::cout << "hooked!\n\n";
 	
 	memcpy(gridSizes, (float*)0x06DDE5C, 44);
+	memcpy(g_commands, (SCommandInfo*)0x73B240, sizeof(g_commands)); //surfaceinspector -> index 23
 
 	a->install(0x426770, r::OnCameraRight);
 	a->install(0x426720, r::OnCameraLeft);
 	a->install(0x4266B0, r::OnCameraForward);
 	a->install(0x426610, r::OnCameraBack);
 	a->install(0x402D90, r::CamWndProc);
+	MainFrame_OnKeyDown_f =  (MainFrame_OnKeyDown_hook)a->install(0x422370, MainFrame_OnKeyDown);
+
 
 	Drag_MouseMoved_f = (Drag_MouseMoved_h)a->install(0x47FF30, Drag_MouseMoved);
 

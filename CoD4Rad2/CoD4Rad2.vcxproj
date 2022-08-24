@@ -196,6 +196,7 @@
     <ClInclude Include="rad_offsets.h" />
     <ClInclude Include="r_init.h" />
     <ClInclude Include="vector.h" />
+    <ClInclude Include="w_mainframe.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="afx.cpp" />
@@ -269,6 +270,7 @@
     <ClCompile Include="r_on_camera.cpp" />
     <ClCompile Include="r_ui.cpp" />
     <ClCompile Include="r_wnd.cpp" />
+    <ClCompile Include="w_mainframe.cpp" />
     <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -52,6 +52,9 @@
     <Filter Include="Source Files\cam">
       <UniqueIdentifier>{989791e4-0296-4fa1-ab1e-4faa8212a318}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\windows">
+      <UniqueIdentifier>{b2a2ba51-3f65-4fc0-8eb2-42b32bde2fb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="h.h">
@@ -153,6 +156,9 @@
     <ClInclude Include="rad_functions.h">
       <Filter>Source Files\radiant</Filter>
     </ClInclude>
+    <ClInclude Include="w_mainframe.h">
+      <Filter>Source Files\windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="entry.cpp">
@@ -247,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="w_mainframe.cpp">
+      <Filter>Source Files\windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
