@@ -6,16 +6,8 @@ void r::R_QuizmoMatrices(float(*view)[4], float(*projection)[4])
 	rad::GfxViewParms* vparms = rad::gfxCmdBufSourceState->viewParms3D;
 	rad::GfxWindowTarget target = rad::dx->windows[0];
 
-	float axis[3][3];
 
-	memcpy(&axis, &vparms->axis, sizeof(axis));
-
-	//axis[1][0] *= -1;
-	//axis[1][1] *= -1;
-	//axis[1][2] *= -1;
-
-
-	MatrixForViewer(view, rad::rg->viewOrg, axis);
+	MatrixForViewer(view, rad::rg->viewOrg, vparms->axis);
 
 	float fov = *(float*)0x25D6028;
 	float halfFovY = tan(fov * 0.01745329238474369f * 0.5f) * 0.75f;
@@ -119,17 +111,31 @@ void r::R_TransformGuizmo(vec3_t deltaPosition, rad::selbrush_def_t* selected_br
 
 	if(imguizmo.mouseMoved)
 		rad::g_brush_move(deltaPosition, selected_brush->def, true);
-
-	std::string deltaOrg = std::to_string(deltaPosition[0]) + '\n' + std::to_string(deltaPosition[1]) + '\n'+ std::to_string(deltaPosition[2]);
-	ImGui::GetBackgroundDrawList()->AddText(ImVec2(0, 0), IM_COL32(0, 255, 0, 255), deltaOrg.c_str());
 }
 void r::R_ScaleGuizmo(vec3_t scale, float grid)
 {
 	if (mCurrentGizmoOperation != ImGuizmo::OPERATION::SCALE)
 		return;
+	
+	static vec3_t last_used = {scale[0], scale[1], scale[2]};
+	vec3_t modified = { scale[0], scale[1], scale[2] };
+	for (int i = 0; i < 3; i++) {
+		if (scale[i] < 1 || scale[i] < last_used[i]) {
+			modified[i] = 0.89f;
+		}
+		else if(scale[i] > 1)
+			modified[i] = 1.1f;
+
+		
+
+		last_used[i] = scale[i];
+		
+		
+
+	}
 
 	if (imguizmo.mouseMoved)
-		rad::g_select_scale(-scale[0], -scale[1], -scale[2]);
+		rad::g_select_scale(modified[0], modified[1], modified[2]);
 }
 void r::R_BeginGuizmo(rad::selbrush_def_t* selected_brush)
 {

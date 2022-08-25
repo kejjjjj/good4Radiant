@@ -18,7 +18,7 @@ void r::R_Render3DWnd()
 		vars::guizmo::give_imgui_mouse = false;
 		return;
 	}
-	
+
 	R_InputHandler();
 	R_BeginGuizmo(selected_brush);
 
