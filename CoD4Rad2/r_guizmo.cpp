@@ -91,7 +91,7 @@ void r::R_SetupGuizmo(rad::selbrush_def_t* selected_brush, float* cameraView, fl
 
 
 			R_TransformGuizmo(delta_origin, selected_brush, grid);
-			R_ScaleGuizmo(scale, grid);
+			R_ScaleGuizmo(scale, selection_center, grid);
 		}
 
 	
@@ -104,7 +104,7 @@ void r::R_SetupGuizmo(rad::selbrush_def_t* selected_brush, float* cameraView, fl
 
 
 }
-void r::R_TransformGuizmo(vec3_t deltaPosition, rad::selbrush_def_t* selected_brush, float grid)
+void r::R_TransformGuizmo(const vec3_t deltaPosition, rad::selbrush_def_t* selected_brush, const float grid)
 {	
 	if (mCurrentGizmoOperation != ImGuizmo::OPERATION::TRANSLATE)
 		return;
@@ -112,30 +112,16 @@ void r::R_TransformGuizmo(vec3_t deltaPosition, rad::selbrush_def_t* selected_br
 	if(imguizmo.mouseMoved)
 		rad::g_brush_move(deltaPosition, selected_brush->def, true);
 }
-void r::R_ScaleGuizmo(vec3_t scale, float grid)
+void r::R_ScaleGuizmo(vec3_t scale, vec3_t brush_origin, float grid)
 {
 	if (mCurrentGizmoOperation != ImGuizmo::OPERATION::SCALE)
 		return;
 	
-	static vec3_t last_used = {scale[0], scale[1], scale[2]};
-	vec3_t modified = { scale[0], scale[1], scale[2] };
-	for (int i = 0; i < 3; i++) {
-		if (scale[i] < 1 || scale[i] < last_used[i]) {
-			modified[i] = 0.89f;
-		}
-		else if(scale[i] > 1)
-			modified[i] = 1.1f;
-
-		
-
-		last_used[i] = scale[i];
-		
-		
-
-	}
-
+	vec3_t v;
+	vec::set3(v, 0);
+	v[2] = grid;
 	if (imguizmo.mouseMoved)
-		rad::g_select_scale(modified[0], modified[1], modified[2]);
+		rad::g_select_move(0, 0, v);
 }
 void r::R_BeginGuizmo(rad::selbrush_def_t* selected_brush)
 {

@@ -21,8 +21,9 @@ namespace r
 	void R_SetupGuizmo(rad::selbrush_def_t* selected_brush, float* cameraView, float* cameraProjection);
 	void R_BeginGuizmo(rad::selbrush_def_t* selected_brush);
 
-	void R_TransformGuizmo(vec3_t deltaPosition, rad::selbrush_def_t* selected_brush, float grid);
-	void R_ScaleGuizmo(vec3_t scale, float grid);
+	void R_TransformGuizmo(const vec3_t deltaPosition, rad::selbrush_def_t* selected_brush, const float grid);
+	void R_ScaleGuizmo(vec3_t scale, vec3_t brush_origin, float grid);
+	
 }
 
 #endif

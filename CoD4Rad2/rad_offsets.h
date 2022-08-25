@@ -31,8 +31,9 @@ namespace rad
 	static DWORD* currSelectedBrushes = (DWORD*)(0x23F1864); // (selected_brushes array pointer)
 	static DWORD* worldEntity_ptr = (DWORD*)(0x25D5B30); // holds pointer to worldEntity
 	static DWORD* g_pParentWnd_ptr = (DWORD*)(0x25D5A70);
-
-	static SCommandInfo g_commands[187];
+	
+	inline SCommandInfo g_commands[187];
+	inline LPARAM* g_nScaleHow = reinterpret_cast<LPARAM*>(0x23F16DC);
 
 	inline uint32_t* g_nUpdateBits = (uint32_t*)0x25D5A74;
 	inline float gridSizes[12];
